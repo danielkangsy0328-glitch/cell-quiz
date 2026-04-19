@@ -1,0 +1,37 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isProfileOwner(userId) {
+      // In this app, we compare passwords as a simple verification
+      return request.resource.data.password == resource.data.password;
+    }
+
+    // User profiles
+    match /users/{userId} {
+      allow get: if true; 
+      allow create: if true; 
+      allow update: if isProfileOwner(userId)
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['totalScore', 'accuracy', 'displayName', 'achievements', 'isAdmin']);
+    }
+
+    // Leaderboards (Public within classId)
+    match /leaderboards/{classId}/students/{userId} {
+      allow list, get: if true; 
+      allow write: if true; // Managed by client-side verification for classroom simplicity
+    }
+
+    // Incorrect answers
+    match /users/{userId}/incorrect_answers/{questionId} {
+      allow read, write: if true;
+    }
+  }
+}

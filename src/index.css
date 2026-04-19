@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-headline: "Plus Jakarta Sans", sans-serif;
+  --font-body: "Manrope", sans-serif;
+
+  --color-primary: #074469;
+  --color-primary-container: #2a5c82;
+  --color-on-primary: #ffffff;
+  --color-on-primary-container: #a5d4ff;
+  
+  --color-secondary: #006e1c;
+  --color-secondary-container: #91f78e;
+  --color-on-secondary: #ffffff;
+  --color-on-secondary-container: #00731e;
+  --color-secondary-dim: #78dc77;
+
+  --color-tertiary: #5a3b00;
+  --color-tertiary-container: #76510e;
+  --color-on-tertiary: #ffffff;
+  --color-on-tertiary-container: #fac67a;
+
+  --color-error: #ba1a1a;
+  --color-error-container: #ffdad6;
+  --color-on-error: #ffffff;
+  --color-on-error-container: #93000a;
+
+  --color-background: #f7f9fb;
+  --color-surface: #f7f9fb;
+  --color-surface-variant: #e0e3e5;
+  --color-surface-container: #eceef0;
+  --color-surface-low: #f2f4f6;
+  --color-surface-lowest: #ffffff;
+  
+  --color-on-surface: #191c1e;
+  --color-on-surface-variant: #41474e;
+
+  --color-outline: #72787f;
+  --color-outline-variant: #c1c7cf;
+
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-background);
+    color: var(--color-on-surface);
+    font-family: var(--font-body);
+  }
+}
+
+.glass-header {
+  @apply bg-background/80 backdrop-blur-xl border-b border-outline-variant/10 sticky top-0 z-40;
+}
+
+.glass-nav {
+  @apply bg-background/90 backdrop-blur-lg border-t border-outline-variant/10 fixed bottom-0 left-0 w-full z-50;
+}
+
+.discovery-progress-glow {
+  @apply absolute right-0 top-1/2 -translate-y-1/2 w-4 h-4 bg-secondary rounded-full blur-[4px];
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 3s linear infinite;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-outline-variant/30 rounded-full;
+}

@@ -1,0 +1,53 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "Information about the student student",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "displayName": { "type": "string" },
+        "classId": { "type": "string" },
+        "totalScore": { "type": "number" },
+        "accuracy": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "displayName", "classId"]
+    },
+    "LeaderboardEntry": {
+      "title": "Leaderboard Entry",
+      "description": "Aggregated stats for a student in a class leaderboard",
+      "type": "object",
+      "properties": {
+        "displayName": { "type": "string" },
+        "score": { "type": "number" },
+        "accuracy": { "type": "number" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "IncorrectAnswer": {
+      "title": "Incorrect Question",
+      "description": "A question missed by a specific user",
+      "type": "object",
+      "properties": {
+        "questionId": { "type": "number" },
+        "userAnswer": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      }
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Private user profiles"
+    },
+    "/leaderboards/{classId}/students/{userId}": {
+      "schema": "LeaderboardEntry",
+      "description": "Public class leaderboards"
+    },
+    "/users/{userId}/incorrect_answers/{questionId}": {
+      "schema": "IncorrectAnswer",
+      "description": "User's incorrect answers for follow-up"
+    }
+  }
+}
